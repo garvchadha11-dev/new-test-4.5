@@ -292,16 +292,12 @@ JS_SET_STATUS_APPROVED = """
         '__xmlview30--': '__xmlview30--_203C_myDecStatus_combobox-arrow',
         '__xmlview84--': '__xmlview84--_203G_Status_combobox-arrow'
     };
-    var arrows = document.querySelectorAll('span[id$="-arrow"]');
+    var arrows = document.querySelectorAll('span[id$="_combobox-arrow"]');
     var arrow = null;
-    // Pass 1: exact hardcoded lookup
+    // Pass 1: exact lookup by getElementById — avoids iterating unrelated arrows
     if (viewPrefix && COMBO_IDS[viewPrefix]) {
-        var targetId = COMBO_IDS[viewPrefix];
-        for (var i = 0; i < arrows.length; i++) {
-            if (arrows[i].id === targetId && arrows[i].getBoundingClientRect().width > 0) {
-                arrow = arrows[i]; break;
-            }
-        }
+        var el = document.getElementById(COMBO_IDS[viewPrefix]);
+        if (el && el.getBoundingClientRect().width > 0) arrow = el;
     }
     // Pass 2: pattern-based (covers views not in lookup)
     if (!arrow) {
@@ -315,11 +311,10 @@ JS_SET_STATUS_APPROVED = """
     }
     // Pass 3: any visible combobox arrow in same view
     if (!arrow) {
-        var comboArrows = document.querySelectorAll('span[id$="_combobox-arrow"]');
-        for (var i = 0; i < comboArrows.length; i++) {
-            var id = comboArrows[i].id;
+        for (var i = 0; i < arrows.length; i++) {
+            var id = arrows[i].id;
             if (viewPrefix && id.indexOf(viewPrefix) === -1) continue;
-            if (comboArrows[i].getBoundingClientRect().width > 0) { arrow = comboArrows[i]; break; }
+            if (arrows[i].getBoundingClientRect().width > 0) { arrow = arrows[i]; break; }
         }
     }
     if (!arrow) return 'ARROW_NOT_FOUND';
@@ -329,7 +324,7 @@ JS_SET_STATUS_APPROVED = """
     var items = combo.getItems();
     var approvedItem = null;
     for (var j = 0; j < items.length; j++) {
-        if (items[j].getText().trim() === 'Approved') {
+        if (items[j] && items[j].getText().trim() === 'Approved') {
             approvedItem = items[j];
             break;
         }
@@ -361,16 +356,14 @@ JS_SET_STATUS_WAREHOUSE = """
         '__xmlview30--': '__xmlview30--_203C_myDecStatus_combobox-arrow',
         '__xmlview84--': '__xmlview84--_203G_Status_combobox-arrow'
     };
-    var arrows = document.querySelectorAll('span[id$="-arrow"]');
+    var arrows = document.querySelectorAll('span[id$="_combobox-arrow"]');
     var arrow = null;
+    // Pass 1: exact lookup by getElementById
     if (viewPrefix && COMBO_IDS[viewPrefix]) {
-        var targetId = COMBO_IDS[viewPrefix];
-        for (var i = 0; i < arrows.length; i++) {
-            if (arrows[i].id === targetId && arrows[i].getBoundingClientRect().width > 0) {
-                arrow = arrows[i]; break;
-            }
-        }
+        var el = document.getElementById(COMBO_IDS[viewPrefix]);
+        if (el && el.getBoundingClientRect().width > 0) arrow = el;
     }
+    // Pass 2: pattern-based
     if (!arrow) {
         for (var i = 0; i < arrows.length; i++) {
             var id = arrows[i].id;
@@ -380,12 +373,12 @@ JS_SET_STATUS_WAREHOUSE = """
             }
         }
     }
+    // Pass 3: any visible combobox arrow in same view
     if (!arrow) {
-        var comboArrows = document.querySelectorAll('span[id$="_combobox-arrow"]');
-        for (var i = 0; i < comboArrows.length; i++) {
-            var id = comboArrows[i].id;
+        for (var i = 0; i < arrows.length; i++) {
+            var id = arrows[i].id;
             if (viewPrefix && id.indexOf(viewPrefix) === -1) continue;
-            if (comboArrows[i].getBoundingClientRect().width > 0) { arrow = comboArrows[i]; break; }
+            if (arrows[i].getBoundingClientRect().width > 0) { arrow = arrows[i]; break; }
         }
     }
     if (!arrow) return 'FAIL';
@@ -395,6 +388,7 @@ JS_SET_STATUS_WAREHOUSE = """
     var items = combo.getItems();
     var whItem = null;
     for (var j = 0; j < items.length; j++) {
+        if (!items[j]) continue;
         var txt = items[j].getText().trim().toLowerCase();
         if (txt === 'approved by destination warehouse keeper' || txt === 'approved by warehouse keeper') {
             whItem = items[j];
