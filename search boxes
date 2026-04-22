@@ -1,0 +1,44 @@
+<div id="__xmlview19--_201X_Status_combobox" data-sap-ui="__xmlview19--_201X_Status_combobox" class="sapMInputBaseNoWidth sapMInputBase sapMInputBaseHeightMargin sapMComboBoxBase sapMComboBox sapMInputBaseHasEndIcons sapMBarChild" style=""><div id="__xmlview19--_201X_Status_combobox-content" class="sapMInputBaseContentWrapper" style="width: 100%;"><input id="__xmlview19--_201X_Status_combobox-inner" placeholder="Status" value="" role="combobox" aria-haspopup="listbox" aria-autocomplete="both" aria-expanded="false" autocomplete="off" autocorrect="off" autocapitalize="off" type="text" class="sapMInputBaseInner sapMComboBoxInner"><div tabindex="-1" class="sapMInputBaseIconContainer"><span id="__xmlview19--_201X_Status_combobox-arrow" data-sap-ui="__xmlview19--_201X_Status_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span></div></div></div>
+<input type="search" autocomplete="off" id="__xmlview19--_201X_search_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview36--_202B_Status_combobox-arrow" data-sap-ui="__xmlview36--_202B_Status_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview36--202B_Search-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" data-sap-ui="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview41--ExciseList_myDeclSearch_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" data-sap-ui="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview41--ExciseList_myDeclSearch_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" data-sap-ui="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview41--ExciseList_myDeclSearch_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview47--_203H_List_table_combobox-arrow" data-sap-ui="__xmlview47--_203H_List_table_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview47--_203H_List_table_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview25--_202R_Status_combobox-arrow" data-sap-ui="__xmlview25--_202R_Status_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview25--_202R_Status_searchbar-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview52--_202S_Status_combobox-arrow" data-sap-ui="__xmlview52--_202S_Status_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview52--202S_Search-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" data-sap-ui="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview41--ExciseList_myDeclSearch_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview68--_202W_Status_combobox-arrow" data-sap-ui="__xmlview68--_202W_Status_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview68--202W_Search-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" data-sap-ui="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview41--ExciseList_myDeclSearch_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview73--_203B_Declaration_ListStatus_combobox-arrow" data-sap-ui="__xmlview73--_203B_Declaration_ListStatus_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview73--_203B_Declaration_ListSearch_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview30--_203C_myDecStatus_combobox-arrow" data-sap-ui="__xmlview30--_203C_myDecStatus_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview30--_203C_myDecSearch_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" data-sap-ui="__xmlview41--ExciseList_myDeclStatus_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview41--ExciseList_myDeclSearch_searchField-I" class="sapMSFI" placeholder="Search">
+
+<span id="__xmlview84--_203G_Status_combobox-arrow" data-sap-ui="__xmlview84--_203G_Status_combobox-arrow" role="button" aria-label="Select Options" data-sap-ui-icon-content="" class="sapUiIcon sapUiIconMirrorInRTL sapUiIconPointer sapMInputBaseIcon" style="font-family: 'SAP\2dicons';"></span>
+<input type="search" autocomplete="off" id="__xmlview84--203G_Search-I" class="sapMSFI" placeholder="Search">
