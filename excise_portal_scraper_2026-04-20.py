@@ -591,6 +591,35 @@ JS_CLICK_NEXT = """
 """
 
 
+JS_SPOT_CHECK_PERIOD = """
+() => {
+    var table = document.getElementById(window.__PAD_TABLE_ID);
+    if (!table) return 'NO_TABLE';
+    var DATE_COLS = [
+        'Excise Tax Period', 'Date of Submission', 'Declaration Date',
+        'Submission Date', 'Tax Period', 'Period', 'Date'
+    ];
+    var headers = table.querySelectorAll('th');
+    var colIndex = -1;
+    for (var i = 0; i < headers.length; i++) {
+        var txt = (headers[i].innerText || headers[i].textContent || '').trim();
+        for (var d = 0; d < DATE_COLS.length; d++) {
+            if (txt === DATE_COLS[d]) { colIndex = i; break; }
+        }
+        if (colIndex > -1) break;
+    }
+    if (colIndex === -1) return 'NO_DATE_COL';
+    var rows = Array.from(table.querySelectorAll('tr')).filter(function(r) {
+        return r.querySelector('td');
+    });
+    if (!rows.length) return 'NO_ROWS';
+    var cells = rows[0].querySelectorAll('td');
+    if (colIndex >= cells.length) return 'NO_CELL';
+    return (cells[colIndex].innerText || cells[colIndex].textContent || '').trim();
+}
+"""
+
+
 def js_scroll_to_row(idx):
     return f"""
     () => {{
@@ -1351,7 +1380,7 @@ class ExciseScraperApp:
                     self.root.after(0, lambda: self._log("No data found after all filter attempts — skipping", "warning"))
                     continue
 
-                dl, sk, tot = self._download_rows(page, download_dir, dest_folder)
+                dl, sk, tot = self._download_rows(page, download_dir, dest_folder, search_term)
                 grand_downloaded += dl
                 grand_skipped += sk
                 grand_total += tot
@@ -1531,7 +1560,7 @@ class ExciseScraperApp:
 
     # ── Download all rows (mirrors PAD Downloader) ────────────────────────────
 
-    def _download_rows(self, page, download_dir, dest_folder):
+    def _download_rows(self, page, download_dir, dest_folder, search_term=""):
         # Give the portal 3s to start rendering after the filter is applied
         self._sleep(3)
 
@@ -1559,6 +1588,17 @@ class ExciseScraperApp:
 
         if total_rows == 0:
             return 0, 0, 0
+
+        # Spot-check: verify first row's date column matches the expected month
+        # Guards against silent filter failures that leave all months visible
+        if search_term:
+            period_val = page.evaluate(JS_SPOT_CHECK_PERIOD)
+            self.root.after(0, lambda v=period_val: self._log(f"Period spot-check: '{v}'", "info"))
+            if period_val not in ("NO_TABLE", "NO_DATE_COL", "NO_ROWS", "NO_CELL", ""):
+                if search_term.lower() not in period_val.lower():
+                    self.root.after(0, lambda v=period_val, s=search_term: self._log(
+                        f"Filter mismatch — first row shows '{v}', expected '{s}' — skipping", "warning"))
+                    return 0, 0, 0
 
         # Page size
         ps_text = page.evaluate(JS_GET_PAGE_SIZE)
