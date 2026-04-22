@@ -1332,6 +1332,9 @@ class ExciseScraperApp:
 
                     panel_open = True
 
+                # ── Wait for SAP busy indicator to fully disappear ──
+                self._wait_not_busy(page)
+
                 # ── 3 & 4. Filter then download: Approved → Warehouse → All ──
                 filter_ok = self._apply_filters(page, search_term)
 
@@ -1399,8 +1402,14 @@ class ExciseScraperApp:
             busy = page.evaluate("""
             () => {
                 var b = document.querySelector('.sapUiLocalBusyIndicatorAnimation');
-                if (b && b.getBoundingClientRect().width > 0) return 'busy';
-                return 'idle';
+                if (!b) return 'idle';
+                var r = b.getBoundingClientRect();
+                var s = window.getComputedStyle(b);
+                var onScreen = r.width > 0 && r.height > 0
+                            && s.display !== 'none'
+                            && s.visibility !== 'hidden'
+                            && parseFloat(s.opacity) > 0;
+                return onScreen ? 'busy' : 'idle';
             }
             """)
             if busy == "idle":
