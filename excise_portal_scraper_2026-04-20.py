@@ -595,27 +595,28 @@ JS_SPOT_CHECK_PERIOD = """
 () => {
     var table = document.getElementById(window.__PAD_TABLE_ID);
     if (!table) return 'NO_TABLE';
-    var DATE_COLS = [
-        'Excise Tax Period', 'Date of Submission', 'Declaration Date',
-        'Submission Date', 'Tax Period', 'Period', 'Date'
-    ];
-    var headers = table.querySelectorAll('th');
-    var colIndex = -1;
-    for (var i = 0; i < headers.length; i++) {
-        var txt = (headers[i].innerText || headers[i].textContent || '').trim();
-        for (var d = 0; d < DATE_COLS.length; d++) {
-            if (txt === DATE_COLS[d]) { colIndex = i; break; }
-        }
-        if (colIndex > -1) break;
-    }
-    if (colIndex === -1) return 'NO_DATE_COL';
+    // Match on data-sap-ui-column attribute of <td> cells (exact SAP attribute from portal DOM).
+    // Keywords cover: 202R_ExciseTaxPeriod_LIST, 203C_DateOfSubmission_LIST, and similar columns
+    // on other declaration tables that contain 'Period', 'Date', or 'Submission' in their column id.
+    var DATE_ATTR_KEYWORDS = ['Period', 'Date', 'Submission'];
     var rows = Array.from(table.querySelectorAll('tr')).filter(function(r) {
         return r.querySelector('td');
     });
     if (!rows.length) return 'NO_ROWS';
     var cells = rows[0].querySelectorAll('td');
-    if (colIndex >= cells.length) return 'NO_CELL';
-    return (cells[colIndex].innerText || cells[colIndex].textContent || '').trim();
+    for (var i = 0; i < cells.length; i++) {
+        var col = cells[i].getAttribute('data-sap-ui-column') || '';
+        for (var k = 0; k < DATE_ATTR_KEYWORDS.length; k++) {
+            if (col.indexOf(DATE_ATTR_KEYWORDS[k]) > -1) {
+                var span = cells[i].querySelector('span');
+                var val = span
+                    ? (span.innerText || span.textContent || '').trim()
+                    : (cells[i].innerText || cells[i].textContent || '').trim();
+                if (val) return val;
+            }
+        }
+    }
+    return 'NO_DATE_COL';
 }
 """
 
