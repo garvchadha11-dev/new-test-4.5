@@ -1485,6 +1485,12 @@ class ExciseScraperApp:
 
                     panel_open = True
 
+                    # ── Give SAP time to mount filter bar / status combo / search field ──
+                    # Table appears before these controls finish rendering; without this
+                    # wait, filter attempts hit a half-built DOM and silently skip.
+                    self.root.after(0, lambda: self._log("Waiting 5s for filter bar to render...", "info"))
+                    self._sleep(5)
+
                 # ── Wait for SAP busy indicator to fully disappear ──
                 self._wait_not_busy(page)
 
@@ -1576,9 +1582,11 @@ class ExciseScraperApp:
         search_term = search_term.lower()
         self._sleep(3)
 
-        # ── Search (retry up to 3x, 1s between) ──
+        # ── Search (retry up to 15x, 1s between) ──
+        # Hardcoded SEARCH_IDS in js_search match the reference file exactly — if
+        # verify fails, SAP simply hasn't mounted the search field yet.
         search_ok = False
-        for attempt in range(4):
+        for attempt in range(15):
             sv = page.evaluate(js_search(search_term))
             self._sleep(1)
             verify = page.evaluate(js_verify_search(search_term))
@@ -1590,9 +1598,11 @@ class ExciseScraperApp:
         if not search_ok:
             self.root.after(0, lambda: self._log("Search did not verify — continuing anyway", "warning"))
 
-        # ── Status → Approved (retry up to 3x, 1s between) ──
+        # ── Status → Approved (retry up to 15x, 1s between) ──
+        # COMBO_IDS are proven correct against the portal DOM — ARROW_NOT_FOUND /
+        # COMBO_NOT_FOUND means SAP hasn't finished mounting, so keep waiting.
         status_result = "FAIL"
-        for attempt in range(4):
+        for attempt in range(15):
             status_result = page.evaluate(JS_SET_STATUS_APPROVED)
             self.root.after(0, lambda r=status_result, a=attempt: self._log(f"Status attempt {a}: {r}", "info"))
             if status_result == "APPROVED_SET":
@@ -1622,7 +1632,7 @@ class ExciseScraperApp:
         # ── Click Go ──
         go_result = page.evaluate(JS_CLICK_GO)
         self.root.after(0, lambda r=go_result: self._log(f"Go button: {r}", "info"))
-        self._sleep(1)  # let SAP show busy indicator before first poll
+        self._sleep(3)  # let SAP show busy indicator before first poll
 
         # ── Poll every 0.5s up to 30s ──
         check = "NO_DATA"
